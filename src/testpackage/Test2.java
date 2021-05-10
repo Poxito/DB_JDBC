@@ -17,7 +17,7 @@ public class Test2 {
         String SQL_SELECT = "Select * from employee";
 
         try (Connection conn = DriverManager.getConnection(
-                "jdbc:mysql://dif-mysql.ehu.es:3306/dbdi24", "DBDI24", "laiotz2001");
+                "jdbc:mysql://dif-mysql.ehu.es:3306/dbdi24", "DBDI24", "notfound");
              PreparedStatement preparedStatement = conn.prepareStatement(SQL_SELECT)) {
 
             ResultSet resultSet = preparedStatement.executeQuery();
