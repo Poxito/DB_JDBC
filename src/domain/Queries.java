@@ -14,7 +14,7 @@ public class Queries {
 		AritzQueryText.add(
 				"Retrieve the people that eat the dish 'cheescake' or a dish which its difficulty is higher or equal than 1, grouped by the category of the dish.");
 		AritzQueryText.add(
-				"Retrieve the maximum, minimum and average of hours of those employees that work in any project of department 1.");
+				"Retrieve the hours of those employees that work in any peoject of department 1.");
 		AritzQueryText.add("People who frequents the same restaurant(s) as Kevin.");
 
 		AritzQueries.add("select p.nameId, d.category "
