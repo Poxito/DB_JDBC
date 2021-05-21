@@ -33,6 +33,7 @@ public class Query {
 		// Aritz Plazaola's queries
 		if (student.equals("Aritz Plazaola")) {
 
+			// Depends on query number
 			switch (queryN) {
 			case 0:
 				SQL_SELECT = queries.getAritzQueries().get(0);
@@ -50,6 +51,7 @@ public class Query {
 		// Zdravko Todorov's queries
 		if (student.equals("Zdravko Todorov")) {
 
+			// Depends on query number
 			switch (queryN) {
 			case 0:
 				SQL_SELECT = queries.getZdravkoQueries().get(0);
@@ -68,7 +70,7 @@ public class Query {
 		///////////////////////////////////////////////////////
 		// Execute if possible
 
-		try (Connection conn = DriverManager.getConnection("jdbc:mysql://dif-mysql.ehu.es:3306/dbdi24", "DBDI24",
+		try (Connection conn = DriverManager.getConnection("jdbc:mysql://dif-mysql.ehu.es:3306/dbdi20", "DBDI20",
 				"notfound"); PreparedStatement preparedStatement = conn.prepareStatement(SQL_SELECT)) {
 
 			///////////////////////////////////////////////////////
@@ -87,10 +89,12 @@ public class Query {
 				// Aritz Plazaola's queries
 				if (student.equals("Aritz Plazaola")) {
 
+					// Depends on query number
 					switch (queryN) {
 					case 0:
 						String id = resultSet.getString("nameId");
-						// TODO
+						String cat = resultSet.getString("category");
+						result.add(id + ", " + cat);
 						break;
 
 					case 1:
@@ -108,6 +112,7 @@ public class Query {
 				// Zdravko Todorov's queries
 				if (student.equals("Zdravko Todorov")) {
 
+					// Depends on query number
 					switch (queryN) {
 					case 0:
 						String name = resultSet.getString("guidename");
@@ -131,11 +136,6 @@ public class Query {
 					}
 				}
 			}
-
-			///////////////////////////////////////////////////////
-			// Print the result
-
-//			result.forEach(x -> System.out.println(x.getId() + " " + x.getName() + " " + x.getSalary()));
 
 			///////////////////////////////////////////////////////
 			// Catch exceptions

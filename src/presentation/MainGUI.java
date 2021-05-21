@@ -36,7 +36,7 @@ public class MainGUI extends JFrame {
 	private int actualIndex = 0;
 	private Query query = new Query();
 	private JList<String> list;
-	
+
 	/**
 	 * Launch the application.
 	 */
@@ -93,11 +93,11 @@ public class MainGUI extends JFrame {
 		contentPane.add(textArea);
 		textArea.setVisible(false);
 		textArea.setFont(new Font("Dialog", Font.BOLD, 14));
-		
+
 		JLabel lblPage = new JLabel("1");
 		lblPage.setBounds(440, 68, 28, 15);
 		contentPane.add(lblPage);
-		
+
 		JLabel label = new JLabel("/  3");
 		label.setBounds(461, 68, 35, 15);
 		contentPane.add(label);
@@ -141,18 +141,18 @@ public class MainGUI extends JFrame {
 				if (!btnExecute.getText().equals("Back")) {
 
 					ArrayList<String> result = query.executeQuery(comboBox.getSelectedItem().toString(), actualIndex);
-					
+
 					DefaultListModel<String> model = new DefaultListModel<String>();
 
-					for (String r: result) {
+					for (String r : result) {
 						model.addElement(r);
 					}
-					
+
 					list = new JList<String>(model);
 					list.setFont(new Font("Dialog", Font.BOLD, 14));
 					list.setBounds(30, 103, 456, 204);
 					contentPane.add(list);
-					
+
 					textArea.setVisible(false);
 					list.setVisible(true);
 					btnExecute.setText("Back");
