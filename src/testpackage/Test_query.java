@@ -6,7 +6,7 @@ import java.util.List;
 
 import domain.Employee;
 
-public class Test2 {
+public class Test_query {
 
     public static void main(String[] args) {
 
