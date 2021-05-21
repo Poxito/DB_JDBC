@@ -80,25 +80,28 @@ public class Query {
 			// Iterate over the result set
 
 			while (resultSet.next()) {
-				
+
 				///////////////////////////////////////////////////////
 				// Result depends on query type
-				
+
 				// Aritz Plazaola's queries
 				if (student.equals("Aritz Plazaola")) {
 
 					switch (queryN) {
 					case 0:
-						//TODO
+						String id = resultSet.getString("nameId");
+						// TODO
 						break;
 
 					case 1:
-						//TODO
+						String name = resultSet.getString("Fname");
+						BigDecimal hours = resultSet.getBigDecimal("Hours");
+						result.add(name + ", " + hours.toString());
 						break;
 
 					case 2:
-						String id = resultSet.getString("nameId");
-						result.add(id);
+						String id2 = resultSet.getString("nameId");
+						result.add(id2);
 						break;
 					}
 				}
@@ -107,30 +110,26 @@ public class Query {
 
 					switch (queryN) {
 					case 0:
-						//TODO
+						String name = resultSet.getString("guidename");
+						String tripto = resultSet.getString("TripTo");
+						result.add(name + ", " + tripto);
 						break;
 
 					case 1:
-						//TODO
+						String id = resultSet.getString("CustomerId");
+						String name2 = resultSet.getString("custname");
+						String address = resultSet.getString("custaddress");
+						int phone = resultSet.getInt("custphone");
+						result.add(id + ", " + name2 + ", " + address + ", " + String.valueOf(phone));
 						break;
 
 					case 2:
-						//TODO
+						String name3 = resultSet.getString("Fname");
+						String lname = resultSet.getString("Lname");
+						result.add(name3 + ", " + lname);
 						break;
 					}
 				}
-
-			/*	String id = resultSet.getString("Ssn");
-				String name = resultSet.getString("Fname");
-				BigDecimal salary = resultSet.getBigDecimal("Salary");
-
-				Employee obj = new Employee();
-				obj.setId(id);
-				obj.setName(name);
-				obj.setSalary(salary);
-
-			result.add(obj);*/
-
 			}
 
 			///////////////////////////////////////////////////////
@@ -149,10 +148,10 @@ public class Query {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		///////////////////////////////////////////////////////
 		// Return result
-		
+
 		return result;
 	}
 

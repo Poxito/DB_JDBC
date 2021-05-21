@@ -16,23 +16,26 @@ public class Queries {
 		AritzQueryText.add(
 				"Retrieve the maximum, minimum and average of hours of those employees that work in any project of department 1.");
 		AritzQueryText.add("People who frequents the same restaurant(s) as Kevin.");
+
 		AritzQueries.add("select p.nameId, d.category "
 				+ "from eats as e inner join person as p on e.nameId = p.nameId inner join dishes as d on e.dish = d.dish "
 				+ "where d.dish = \"cheesecake\" or d.dish in (select di.dish " + "from dishes as di "
 				+ "where di.category >= 1.0) " + "group by p.nameId, d.category");
-		AritzQueries.add("select em.Fname, min(wo.Hours), max(wo.Hours), avg(wo.Hours) "
-				+ "from works_on as wo inner join employee as em on wo.Essn = em.Ssn "
-				+ "where wo.Pno = (select pr.Pnumber " + "from project as pr " + "where pr.Dnum = 1) "
-				+ "group by em.Fname, wo.Hours, em.Lname " + "order by em.Lname");
+		AritzQueries
+				.add("select em.Fname, wo.Hours " + "from works_on as wo inner join employee as em on wo.Essn = em.Ssn "
+						+ "where wo.Pno = (select pr.Pnumber " + "from project as pr " + "where pr.Dnum = 1) "
+						+ "group by em.Fname, wo.Hours, em.Lname " + "order by em.Lname");
 		AritzQueries.add("select distinct fre.nameId " + "from frequents as fre " + "where not exists (select *  "
 				+ "from (select restaurname " + "from frequents " + "where nameId = \"Kevin\") as KR "
 				+ "where KR.restaurname not in (select restaurname " + "from frequents as freque "
 				+ "where freque.nameId = fre.nameId))");
+
 		ZdravkoQueryText.add("Retrieve the name and the trips of the guides who speak Basque and have gone to Beirut.");
 		ZdravkoQueryText
 				.add("Retrieve the all the information of the customer(s) that have gone to Mars and not to Everest.");
 		ZdravkoQueryText
 				.add("Retrieve the first name and last name of the those employees that work in project 1 and 2.");
+
 		ZdravkoQueries.add("select distinct tou.guidename, tr.TripTo "
 				+ "from (tourguide as tou inner join languages as lang on tou.GuideId = lang.GuideId) "
 				+ " inner join trip as tr on tou.GuideId = tr.GuideId "
@@ -61,6 +64,5 @@ public class Queries {
 	public ArrayList<String> getZdravkoQueries() {
 		return ZdravkoQueries;
 	}
-	
-	
+
 }

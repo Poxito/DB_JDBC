@@ -93,6 +93,14 @@ public class MainGUI extends JFrame {
 		contentPane.add(textArea);
 		textArea.setVisible(false);
 		textArea.setFont(new Font("Dialog", Font.BOLD, 14));
+		
+		JLabel lblPage = new JLabel("1");
+		lblPage.setBounds(440, 68, 28, 15);
+		contentPane.add(lblPage);
+		
+		JLabel label = new JLabel("/  3");
+		label.setBounds(461, 68, 35, 15);
+		contentPane.add(label);
 
 		JButton btnNextQuery = new JButton("Next Query");
 		btnNextQuery.addActionListener(new ActionListener() {
@@ -104,6 +112,7 @@ public class MainGUI extends JFrame {
 				if (comboBox.getSelectedItem().equals("Zdravko Todorov") && actualIndex < 3)
 					textArea.setText(queries.getZdravkoQueryText().get(actualIndex));
 				System.out.println("Actual index -> " + actualIndex);
+				lblPage.setText(String.valueOf(actualIndex + 1));
 			}
 		});
 		btnNextQuery.setBounds(350, 319, 136, 25);
@@ -119,6 +128,7 @@ public class MainGUI extends JFrame {
 				if (comboBox.getSelectedItem().equals("Zdravko Todorov") && actualIndex >= 0)
 					textArea.setText(queries.getZdravkoQueryText().get(actualIndex));
 				System.out.println("Actual index -> " + actualIndex);
+				lblPage.setText(String.valueOf(actualIndex + 1));
 			}
 		});
 		btnPreviousQuery.setBounds(30, 319, 141, 25);
@@ -164,6 +174,8 @@ public class MainGUI extends JFrame {
 		btnExecute.setVisible(false);
 		btnNextQuery.setVisible(false);
 		btnPreviousQuery.setVisible(false);
+		label.setVisible(false);
+		lblPage.setVisible(false);
 
 		JLabel lblQueryOrTransaction = new JLabel("Query or transaction?");
 		lblQueryOrTransaction.setBounds(12, 60, 203, 31);
@@ -177,9 +189,11 @@ public class MainGUI extends JFrame {
 				btnExecute.setVisible(true);
 				btnNextQuery.setVisible(true);
 				btnPreviousQuery.setVisible(true);
+				lblPage.setVisible(true);
+				label.setVisible(true);
 			}
 		});
-		rdbtnQuery.setBounds(203, 64, 93, 23);
+		rdbtnQuery.setBounds(192, 64, 93, 23);
 		buttonGroup.add(rdbtnQuery);
 
 		JRadioButton rdbtnTransaction = new JRadioButton("Transaction");
@@ -190,9 +204,11 @@ public class MainGUI extends JFrame {
 				btnExecute.setVisible(false);
 				btnNextQuery.setVisible(false);
 				btnPreviousQuery.setVisible(false);
+				lblPage.setVisible(false);
+				label.setVisible(false);
 			}
 		});
-		rdbtnTransaction.setBounds(301, 64, 149, 23);
+		rdbtnTransaction.setBounds(300, 64, 126, 23);
 		buttonGroup.add(rdbtnTransaction);
 
 		contentPane.add(rdbtnTransaction);
