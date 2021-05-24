@@ -1,22 +1,19 @@
-package testpackage;
+package dataAccess;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Savepoint;
 import java.sql.Statement;
 
-import com.mysql.cj.jdbc.exceptions.SQLError;
-import com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping;
+public class Transaction {
 
-public class Test_transac {
-
-	public static void main(String[] args) {
-
+	public String insertTransaction(String student) {
+		
 		// Initialize the connection and save point to null
 		Connection conn = null;
 		Savepoint savep = null;
+		String result = "";
 		
 		// Try connecting to the DB
 		try {
@@ -43,14 +40,29 @@ public class Test_transac {
 		try {
 			Statement stmt = conn.createStatement();
 			
-			// Insert statement (correct)
-			stmt.executeUpdate("INSERT INTO works_on VALUES ('123456789', 3, 20.0)");
+			if(student.equals("Aritz Plazaola")) {
+				
+				// Insert statement (correct)
+				stmt.executeUpdate("INSERT INTO project VALUES ('ProductF', 4, 'Narnia', 4)");
+				
+				// Save a save point
+				savep = conn.setSavepoint("BeforeInventedDnum");
+				
+				// Insert statement (using invented Dnum value)
+				stmt.executeUpdate("INSERT INTO works_on VALUES ('NautilusX', 5, 'Marioland', 6)");
+			}
 			
-			// Save a save point
-			savep = conn.setSavepoint("BeforeInventedEssn");
-			
-			// Insert statement (using invented Essn value)
-			stmt.executeUpdate("INSERT INTO works_on VALUES ('121212121', 2, 15.0)");
+			if(student.equals("Zdravko Todorov")) {
+				
+				// Insert statement (correct)
+				stmt.executeUpdate("INSERT INTO works_on VALUES ('123456789', 3, 20.0)");
+				
+				// Save a save point
+				savep = conn.setSavepoint("BeforeInventedEssn");
+				
+				// Insert statement (using invented Essn value)
+				stmt.executeUpdate("INSERT INTO works_on VALUES ('121212121', 2, 15.0)");
+			}
 			
 			// Commit the transaction
 			conn.commit();
@@ -63,9 +75,12 @@ public class Test_transac {
 			try {
 				conn.rollback(savep);
 				System.err.println(e.getMessage());
+				result += "Error detected!\n";
 				System.err.println("\nThe transaction was rolled back to the las savepoint");
+				result += "The transaction was rolled back to the las savepoint\n";
 				conn.commit();
 				System.out.println("The transaction commited succesfully after rollback!");
+				result += "The transaction commited succesfully after rollback!\n";
 				
 				// Catch SQL exception
 			} catch (SQLException e2) {
@@ -73,6 +88,11 @@ public class Test_transac {
 				System.err.println("There was an error making the rollback");
 			}
 		}
+		return result;
 	}
-
+	
+	public String updateTransaction(String student, int transN) {
+		
+		return "";
+	}
 }

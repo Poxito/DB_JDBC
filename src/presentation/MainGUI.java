@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import dataAccess.Query;
+import dataAccess.Transaction;
 import domain.Queries;
 
 import javax.swing.JLabel;
@@ -30,12 +31,13 @@ public class MainGUI extends JFrame {
 
 	private JPanel contentPane;
 	private ButtonGroup buttonGroup = new ButtonGroup();
-	JTextArea textArea = new JTextArea();
+	JTextArea textAreaQuery = new JTextArea();
 	private JTable table;
 	private Queries queries = new Queries();
 	private int actualIndex = 0;
 	private Query query = new Query();
 	private JList<String> list;
+	private Transaction transaction = new Transaction();
 
 	/**
 	 * Launch the application.
@@ -65,6 +67,17 @@ public class MainGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
+		JRadioButton rdbtnQuery = new JRadioButton("Query");
+		JRadioButton rdbtnTransaction = new JRadioButton("Transaction");
+
+		JTextArea textAreaTrans = new JTextArea();
+		textAreaTrans.setText("textAreatrans");
+		textAreaTrans.setBounds(30, 103, 456, 204);
+		contentPane.add(textAreaTrans);
+		textAreaTrans.setVisible(false);
+		textAreaTrans.setText("Transaction text will appear here");
+		textAreaTrans.setFont(new Font("Dialog", Font.BOLD, 14));
+
 		JLabel lblWichStudentsWork = new JLabel("Wich student's work do you want to test?");
 		lblWichStudentsWork.setBounds(12, 12, 325, 26);
 		contentPane.add(lblWichStudentsWork);
@@ -74,9 +87,9 @@ public class MainGUI extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 
 				if (comboBox.getSelectedItem().equals("Aritz Plazaola"))
-					textArea.setText(queries.getAritzQueryText().get(actualIndex));
+					textAreaQuery.setText(queries.getAritzQueryText().get(actualIndex));
 				if (comboBox.getSelectedItem().equals("Zdravko Todorov"))
-					textArea.setText(queries.getZdravkoQueryText().get(actualIndex));
+					textAreaQuery.setText(queries.getZdravkoQueryText().get(actualIndex));
 			}
 		});
 		comboBox.setBounds(323, 13, 189, 24);
@@ -85,14 +98,14 @@ public class MainGUI extends JFrame {
 		comboBox.addItem("Please select student");
 		comboBox.addItem("Aritz Plazaola");
 		comboBox.addItem("Zdravko Todorov");
-		textArea.setWrapStyleWord(true);
-		textArea.setLineWrap(true);
+		textAreaQuery.setWrapStyleWord(true);
+		textAreaQuery.setLineWrap(true);
 
-		textArea.setText("Query text will appear here");
-		textArea.setBounds(30, 103, 456, 204);
-		contentPane.add(textArea);
-		textArea.setVisible(false);
-		textArea.setFont(new Font("Dialog", Font.BOLD, 14));
+		textAreaQuery.setText("Query text will appear here");
+		textAreaQuery.setBounds(30, 103, 456, 204);
+		contentPane.add(textAreaQuery);
+		textAreaQuery.setVisible(false);
+		textAreaQuery.setFont(new Font("Dialog", Font.BOLD, 14));
 
 		JLabel lblPage = new JLabel("1");
 		lblPage.setBounds(440, 68, 28, 15);
@@ -102,15 +115,25 @@ public class MainGUI extends JFrame {
 		label.setBounds(461, 68, 35, 15);
 		contentPane.add(label);
 
-		JButton btnNextQuery = new JButton("Next Query");
+		JButton btnNextQuery = new JButton("Next");
 		btnNextQuery.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if (actualIndex < 2)
+				if (actualIndex < 2 && rdbtnQuery.isSelected())
+					actualIndex++;
+				if (actualIndex < 1 && rdbtnTransaction.isSelected())
 					actualIndex++;
 				if (comboBox.getSelectedItem().equals("Aritz Plazaola") && actualIndex < 3)
-					textArea.setText(queries.getAritzQueryText().get(actualIndex));
+					textAreaQuery.setText(queries.getAritzQueryText().get(actualIndex));
 				if (comboBox.getSelectedItem().equals("Zdravko Todorov") && actualIndex < 3)
-					textArea.setText(queries.getZdravkoQueryText().get(actualIndex));
+					textAreaQuery.setText(queries.getZdravkoQueryText().get(actualIndex));
+
+				if (actualIndex == 0) {
+					textAreaTrans.setText("insert will be here");
+				}
+				if (actualIndex == 1) {
+					textAreaTrans.setText("update will be here bitch!");
+				}
+
 				System.out.println("Actual index -> " + actualIndex);
 				lblPage.setText(String.valueOf(actualIndex + 1));
 			}
@@ -118,15 +141,21 @@ public class MainGUI extends JFrame {
 		btnNextQuery.setBounds(350, 319, 136, 25);
 		contentPane.add(btnNextQuery);
 
-		JButton btnPreviousQuery = new JButton("Previous Query");
+		JButton btnPreviousQuery = new JButton("Previous");
 		btnPreviousQuery.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (actualIndex > 0)
 					actualIndex--;
 				if (comboBox.getSelectedItem().equals("Aritz Plazaola") && actualIndex >= 0)
-					textArea.setText(queries.getAritzQueryText().get(actualIndex));
+					textAreaQuery.setText(queries.getAritzQueryText().get(actualIndex));
 				if (comboBox.getSelectedItem().equals("Zdravko Todorov") && actualIndex >= 0)
-					textArea.setText(queries.getZdravkoQueryText().get(actualIndex));
+					textAreaQuery.setText(queries.getZdravkoQueryText().get(actualIndex));
+
+				if (actualIndex == 0)
+					textAreaTrans.setText("insert will be here");
+				if (actualIndex == 1)
+					textAreaTrans.setText("update will be here");
+
 				System.out.println("Actual index -> " + actualIndex);
 				lblPage.setText(String.valueOf(actualIndex + 1));
 			}
@@ -153,14 +182,14 @@ public class MainGUI extends JFrame {
 					list.setBounds(30, 103, 456, 204);
 					contentPane.add(list);
 
-					textArea.setVisible(false);
+					textAreaQuery.setVisible(false);
 					list.setVisible(true);
 					btnExecute.setText("Back");
 					btnNextQuery.setVisible(false);
 					btnPreviousQuery.setVisible(false);
 				} else {
 
-					textArea.setVisible(true);
+					textAreaQuery.setVisible(true);
 					list.setVisible(false);
 					btnExecute.setText("Execute");
 					btnNextQuery.setVisible(true);
@@ -181,31 +210,33 @@ public class MainGUI extends JFrame {
 		lblQueryOrTransaction.setBounds(12, 60, 203, 31);
 		contentPane.add(lblQueryOrTransaction);
 
-		JRadioButton rdbtnQuery = new JRadioButton("Query");
 		rdbtnQuery.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				textArea.setVisible(true);
+				textAreaQuery.setVisible(true);
+				textAreaTrans.setVisible(false);
 				btnExecute.setVisible(true);
 				btnNextQuery.setVisible(true);
 				btnPreviousQuery.setVisible(true);
 				lblPage.setVisible(true);
+				label.setText("/  3");
 				label.setVisible(true);
 			}
 		});
 		rdbtnQuery.setBounds(192, 64, 93, 23);
 		buttonGroup.add(rdbtnQuery);
 
-		JRadioButton rdbtnTransaction = new JRadioButton("Transaction");
 		rdbtnTransaction.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				textArea.setVisible(false);
-				btnExecute.setVisible(false);
-				btnNextQuery.setVisible(false);
-				btnPreviousQuery.setVisible(false);
-				lblPage.setVisible(false);
-				label.setVisible(false);
+				textAreaQuery.setVisible(false);
+				textAreaTrans.setVisible(true);
+				btnExecute.setVisible(true);
+				btnNextQuery.setVisible(true);
+				btnPreviousQuery.setVisible(true);
+				lblPage.setVisible(true);
+				label.setText("/  2");
+				label.setVisible(true);
 			}
 		});
 		rdbtnTransaction.setBounds(300, 64, 126, 23);
