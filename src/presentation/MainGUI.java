@@ -76,7 +76,15 @@ public class MainGUI extends JFrame {
 		contentPane.add(textAreaTrans);
 		textAreaTrans.setVisible(false);
 		textAreaTrans.setText("Transaction text will appear here");
-		textAreaTrans.setFont(new Font("Dialog", Font.BOLD, 14));
+		textAreaTrans.setFont(new Font("Dialog", Font.BOLD, 12));
+
+		JTextArea textAreaResult = new JTextArea();
+		textAreaResult.setText("result");
+		textAreaResult.setBounds(30, 103, 456, 204);
+		contentPane.add(textAreaResult);
+		textAreaResult.setVisible(false);
+		textAreaResult.setText("Transaction result will appear here");
+		textAreaResult.setFont(new Font("Dialog", Font.BOLD, 12));
 
 		JLabel lblWichStudentsWork = new JLabel("Wich student's work do you want to test?");
 		lblWichStudentsWork.setBounds(12, 12, 325, 26);
@@ -86,10 +94,25 @@ public class MainGUI extends JFrame {
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
-				if (comboBox.getSelectedItem().equals("Aritz Plazaola"))
+				if (comboBox.getSelectedItem().equals("Aritz Plazaola")) {
 					textAreaQuery.setText(queries.getAritzQueryText().get(actualIndex));
-				if (comboBox.getSelectedItem().equals("Zdravko Todorov"))
+					if (actualIndex == 0)
+						textAreaTrans.setText(
+								"INSERT transaction:\n-------------------------\nFirst, \n\nINSERT INTO project VALUES ('ProductF', 4, 'Narnia', 4)\n(correct)\n\nand then, \n\nINSERT INTO works_on VALUES ('NautilusX', 5, 'Marioland', 6)\n(incorrect, invented 'Dnum' value)\n\nWill rollback to savepoint before second INSERT");
+					if (actualIndex == 1)
+						textAreaTrans.setText(
+								"UPDATE transaction:\n-------------------------\nUPDATE person SET id = 20 WHERE nameId = 'Abigail'\n\nThe transaction will be executed,\nbut there is no 'order' corresponding to Id = 20");
+				}
+				if (comboBox.getSelectedItem().equals("Zdravko Todorov")) {
 					textAreaQuery.setText(queries.getZdravkoQueryText().get(actualIndex));
+					if (actualIndex == 0)
+						textAreaTrans.setText(
+								"INSERT transaction:\n-------------------------\nFirst, \n\nINSERT INTO works_on VALUES ('123456789', 3, 20.0)\n(correct)\n\nand then, \n\nINSERT INTO works_on VALUES ('121212121', 2, 15.0)\n(incorrect, invented 'Essn' value)\n\nWill rollback to savepoint before second INSERT");
+					if (actualIndex == 1)
+						textAreaTrans.setText(
+								"UPDATE transaction:\n-------------------------\nUPDATE department SET Mgr_ssn = 0 WHERE Dnumber = 4\n\nThe transaction will be executed,\nbut there is no 'employee' corresponding to Ssn = 0");
+					;
+				}
 			}
 		});
 		comboBox.setBounds(323, 13, 189, 24);
@@ -128,10 +151,20 @@ public class MainGUI extends JFrame {
 					textAreaQuery.setText(queries.getZdravkoQueryText().get(actualIndex));
 
 				if (actualIndex == 0) {
-					textAreaTrans.setText("insert will be here");
+					if (comboBox.getSelectedItem().equals("Aritz Plazaola"))
+						textAreaTrans.setText(
+								"INSERT transaction:\n-------------------------\nFirst, \n\nINSERT INTO project VALUES ('ProductF', 4, 'Narnia', 4)\n(correct)\n\nand then, \n\nINSERT INTO works_on VALUES ('NautilusX', 5, 'Marioland', 6)\n(incorrect, invented 'Dnum' value)\n\nWill rollback to savepoint before second INSERT");
+					if (comboBox.getSelectedItem().equals("Zdravko Todorov"))
+						textAreaTrans.setText(
+								"INSERT transaction:\n-------------------------\nFirst, \n\nINSERT INTO works_on VALUES ('123456789', 3, 20.0)\n(correct)\n\nand then, \n\nINSERT INTO works_on VALUES ('121212121', 2, 15.0)\n(incorrect, invented 'Essn' value)\n\nWill rollback to savepoint before second INSERT");
 				}
 				if (actualIndex == 1) {
-					textAreaTrans.setText("update will be here bitch!");
+					if (comboBox.getSelectedItem().equals("Aritz Plazaola"))
+						textAreaTrans.setText(
+								"UPDATE transaction:\n-------------------------\nUPDATE person SET id = 20 WHERE nameId = 'Abigail'\n\nThe transaction will be executed,\nbut there is no 'order' corresponding to Id = 20");
+					if (comboBox.getSelectedItem().equals("Zdravko Todorov"))
+						textAreaTrans.setText(
+								"UPDATE transaction:\n-------------------------\nUPDATE department SET Mgr_ssn = 0 WHERE Dnumber = 4\n\nThe transaction will be executed,\nbut there is no 'employee' corresponding to Ssn = 0");
 				}
 
 				System.out.println("Actual index -> " + actualIndex);
@@ -151,10 +184,22 @@ public class MainGUI extends JFrame {
 				if (comboBox.getSelectedItem().equals("Zdravko Todorov") && actualIndex >= 0)
 					textAreaQuery.setText(queries.getZdravkoQueryText().get(actualIndex));
 
-				if (actualIndex == 0)
-					textAreaTrans.setText("insert will be here");
-				if (actualIndex == 1)
-					textAreaTrans.setText("update will be here");
+				if (actualIndex == 0) {
+					if (comboBox.getSelectedItem().equals("Aritz Plazaola"))
+						textAreaTrans.setText(
+								"INSERT transaction:\n-------------------------\nFirst, \n\nINSERT INTO project VALUES ('ProductF', 4, 'Narnia', 4)\n(correct)\n\nand then, \n\nINSERT INTO works_on VALUES ('NautilusX', 5, 'Marioland', 6)\n(incorrect, invented 'Dnum' value)\n\nWill rollback to savepoint before second INSERT");
+					if (comboBox.getSelectedItem().equals("Zdravko Todorov"))
+						textAreaTrans.setText(
+								"INSERT transaction:\n-------------------------\nFirst, \n\nINSERT INTO works_on VALUES ('123456789', 3, 20.0)\n(correct)\n\nand then, \n\nINSERT INTO works_on VALUES ('121212121', 2, 15.0)\n(incorrect, invented 'Essn' value)\n\nWill rollback to savepoint before second INSERT");
+				}
+				if (actualIndex == 1) {
+					if (comboBox.getSelectedItem().equals("Aritz Plazaola"))
+						textAreaTrans.setText(
+								"UPDATE transaction:\n-------------------------\nUPDATE person SET id = 20 WHERE nameId = 'Abigail'\n\nThe transaction will be executed,\nbut there is no 'order' corresponding to Id = 20");
+					if (comboBox.getSelectedItem().equals("Zdravko Todorov"))
+						textAreaTrans.setText(
+								"UPDATE transaction:\n-------------------------\nUPDATE department SET Mgr_ssn = 0 WHERE Dnumber = 4\n\nThe transaction will be executed,\nbut there is no 'employee' corresponding to Ssn = 0");
+				}
 
 				System.out.println("Actual index -> " + actualIndex);
 				lblPage.setText(String.valueOf(actualIndex + 1));
@@ -169,28 +214,53 @@ public class MainGUI extends JFrame {
 
 				if (!btnExecute.getText().equals("Back")) {
 
-					ArrayList<String> result = query.executeQuery(comboBox.getSelectedItem().toString(), actualIndex);
+					if (rdbtnQuery.isSelected()) {
 
-					DefaultListModel<String> model = new DefaultListModel<String>();
+						ArrayList<String> result = query.executeQuery(comboBox.getSelectedItem().toString(),
+								actualIndex);
 
-					for (String r : result) {
-						model.addElement(r);
+						DefaultListModel<String> model = new DefaultListModel<String>();
+
+						for (String r : result) {
+							model.addElement(r);
+						}
+
+						list = new JList<String>(model);
+						list.setFont(new Font("Dialog", Font.BOLD, 14));
+						list.setBounds(30, 103, 456, 204);
+						contentPane.add(list);
+
+						textAreaQuery.setVisible(false);
+						list.setVisible(true);
+						btnExecute.setText("Back");
+						btnNextQuery.setVisible(false);
+						btnPreviousQuery.setVisible(false);
 					}
 
-					list = new JList<String>(model);
-					list.setFont(new Font("Dialog", Font.BOLD, 14));
-					list.setBounds(30, 103, 456, 204);
-					contentPane.add(list);
+					if (rdbtnTransaction.isSelected()) {
 
-					textAreaQuery.setVisible(false);
-					list.setVisible(true);
-					btnExecute.setText("Back");
-					btnNextQuery.setVisible(false);
-					btnPreviousQuery.setVisible(false);
+						textAreaResult.setVisible(true);
+						textAreaTrans.setVisible(false);
+						textAreaQuery.setVisible(false);
+						btnExecute.setText("Back");
+						btnNextQuery.setVisible(false);
+						btnPreviousQuery.setVisible(false);
+						if (actualIndex == 0)
+							textAreaResult
+									.setText(transaction.insertTransaction(comboBox.getSelectedItem().toString()));
+						if (actualIndex == 1)
+							textAreaResult
+									.setText(transaction.updateTransaction(comboBox.getSelectedItem().toString()));
+					}
 				} else {
 
-					textAreaQuery.setVisible(true);
-					list.setVisible(false);
+					if (rdbtnQuery.isSelected())
+						textAreaQuery.setVisible(true);
+					if (rdbtnTransaction.isSelected())
+						textAreaTrans.setVisible(true);
+					textAreaResult.setVisible(false);
+					if (rdbtnQuery.isSelected())
+						list.setVisible(false);
 					btnExecute.setText("Execute");
 					btnNextQuery.setVisible(true);
 					btnPreviousQuery.setVisible(true);
@@ -213,6 +283,7 @@ public class MainGUI extends JFrame {
 		rdbtnQuery.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
+				btnExecute.setText("Execute");
 				textAreaQuery.setVisible(true);
 				textAreaTrans.setVisible(false);
 				btnExecute.setVisible(true);
@@ -229,6 +300,9 @@ public class MainGUI extends JFrame {
 		rdbtnTransaction.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 
+				btnExecute.setText("Execute");
+				actualIndex = 0;
+				lblPage.setText(String.valueOf(actualIndex + 1));
 				textAreaQuery.setVisible(false);
 				textAreaTrans.setVisible(true);
 				btnExecute.setVisible(true);
